@@ -134,19 +134,25 @@ function BottomElements({ btmInfo }) {
   const [polygons, setPolygons] = usePolys();
   const [imageURL, setImageURL] = useState();
   const server = "/amazon/";
-  var tailCost = 28500;
-  var floorCost = 2475000;
-  var otherCostFloor = 430000;
-  var otherCostTail = 1000000;
-  var calCost = tailCost + floorCost + otherCostFloor + otherCostTail;
-  // btmInfo가 변경될 때마다 실행될 useEffect
+
+  const [costs, setCosts] = useState({
+    tailCost: 0,
+    floorCost: 0,
+  });
+
+  const otherCostFloor = 430000;
+  const otherCostTail = 1000000;
+
+  const calculateCost = () => {
+    return costs.tailCost + costs.floorCost + otherCostFloor + otherCostTail;
+  };
+
   useEffect(() => {
     if (btmInfo.ElementName) {
       fetchImage(btmInfo.ElementName);
     }
   }, [btmInfo]);
 
-  // 서버로부터 이미지를 받아오는 함수
   const fetchImage = async (elementName) => {
     try {
       const response = await axios.get(`/api/images/?fileNames=${elementName}`);
@@ -155,16 +161,17 @@ function BottomElements({ btmInfo }) {
       console.error("Error fetching image:", error);
     }
   };
+
   useEffect(() => {
     if (imageURL) {
-      var url = imageURL;
-      var urlStr = url.substr(39);
-      var imgUrl = server + urlStr;
+      const urlStr = imageURL.substr(39);
+      const imgUrl = server + urlStr;
+
       if (btmInfo && btmInfo.ElementName) {
         if (btmInfo.objectType === "Btm") {
           if (
-            btmInfo.ElementName.substr(0, 1) === "f" ||
-            btmInfo.ElementName.substr(0, 1) === "t"
+            btmInfo.ElementName.startsWith("f") ||
+            btmInfo.ElementName.startsWith("t")
           ) {
             setPolygons((currentPolygons) => {
               return currentPolygons.map((polygonGroup) => {
@@ -172,60 +179,42 @@ function BottomElements({ btmInfo }) {
                   ...polygonGroup,
                   polys: polygonGroup.polys.map((poly) => {
                     if (poly.section === btmInfo.section) {
+                      let newTailCost = costs.tailCost;
+                      let newFloorCost = costs.floorCost;
+
                       switch (poly.section) {
                         case "Usual":
                           const eType = btmInfo.ElementName.substr(6, 2);
                           const eTypeNum = parseInt(eType, 10);
                           if (eTypeNum > 12 && eTypeNum < 25) {
-                            floorCost = btmInfo.cost * 1;
-                            calCost =
-                              tailCost +
-                              floorCost +
-                              otherCostFloor +
-                              otherCostTail;
-                            btmInfo.getCostfloor(calCost);
-                            return {
-                              ...poly,
-                              texture: imgUrl,
-                            };
+                            newFloorCost = btmInfo.cost * 1;
                           } else {
-                            floorCost = btmInfo.cost * 25;
-                            calCost =
-                              tailCost +
-                              floorCost +
-                              otherCostFloor +
-                              otherCostTail;
-                            btmInfo.getCostfloor(calCost);
-                            return {
-                              ...poly,
-                              texture: imgUrl,
-                            };
+                            newFloorCost = btmInfo.cost * 25;
                           }
+                          break;
+
                         case "Restroom":
-                          tailCost = btmInfo.cost * 1.5;
-                          calCost =
-                            tailCost +
-                            floorCost +
-                            otherCostFloor +
-                            otherCostTail;
-                          btmInfo.getCostfloor(calCost);
-                          return {
-                            ...poly,
-                            texture: imgUrl,
-                          };
+                          newTailCost = btmInfo.cost * 1.5;
+                          break;
+
                         default:
-                          tailCost = btmInfo.cost * 1.5;
-                          calCost =
-                            tailCost +
-                            floorCost +
-                            otherCostFloor +
-                            otherCostTail;
-                          btmInfo.getCostfloor(calCost);
-                          return {
-                            ...poly,
-                            texture: imgUrl,
-                          };
+                          newTailCost = btmInfo.cost * 1.5;
+                          break;
                       }
+
+                      // 상태 업데이트
+                      setCosts((prevCosts) => ({
+                        tailCost: newTailCost,
+                        floorCost: newFloorCost,
+                      }));
+
+                      const calCost = calculateCost();
+                      btmInfo.getCostfloor(calCost);
+
+                      return {
+                        ...poly,
+                        texture: imgUrl,
+                      };
                     }
                     return poly;
                   }),
@@ -236,7 +225,7 @@ function BottomElements({ btmInfo }) {
         }
       }
     }
-  }, [imageURL]);
+  }, [imageURL, costs]);
   return (
     <>
       {polygons.map(({ polys }, index) => (

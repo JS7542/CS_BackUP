@@ -150,28 +150,36 @@ function WallElements({ wallInfo }) {
   const [rooms, setRooms] = useRooms();
   const [imageURL, setImageURL] = useState();
   const server = "/amazon/";
-  var livingCost = 0;
-  var room1Cost = 0;
-  var room2Cost = 0;
-  var room3Cost = 0;
-  var tailCost = 0;
-  var otherCostWall = 1440000;
-  var otherCostTail = 1000000;
-  var calCost =
-    livingCost +
-    room1Cost +
-    room2Cost +
-    room3Cost +
-    tailCost +
-    otherCostTail +
-    otherCostWall;
+
+  const [costs, setCosts] = useState({
+    livingCost: 0,
+    room1Cost: 0,
+    room2Cost: 0,
+    room3Cost: 0,
+    tailCost: 0,
+  });
+
+  const otherCostWall = 1440000;
+  const otherCostTail = 1000000;
+
+  const calculateCost = () => {
+    return (
+      costs.livingCost +
+      costs.room1Cost +
+      costs.room2Cost +
+      costs.room3Cost +
+      costs.tailCost +
+      otherCostTail +
+      otherCostWall
+    );
+  };
+
   useEffect(() => {
     if (wallInfo.ElementName) {
       fetchImage(wallInfo.ElementName);
     }
   }, [wallInfo.ElementName]);
 
-  // 서버로부터 이미지를 받아오는 함수
   const fetchImage = async (elementName) => {
     try {
       const response = await axios.get(`/api/images/?fileNames=${elementName}`);
@@ -183,14 +191,14 @@ function WallElements({ wallInfo }) {
 
   useEffect(() => {
     if (imageURL) {
-      var url = imageURL;
-      var urlStr = url.substr(39);
-      var imgUrl = server + urlStr;
+      const urlStr = imageURL.substr(39);
+      const imgUrl = server + urlStr;
+
       if (wallInfo && wallInfo.ElementName) {
         if (wallInfo.objectType === "Wall") {
           if (
-            wallInfo.ElementName.substr(0, 1) === "w" ||
-            wallInfo.ElementName.substr(0, 1) === "t"
+            wallInfo.ElementName.startsWith("w") ||
+            wallInfo.ElementName.startsWith("t")
           ) {
             setRooms((currentWalls) => {
               return currentWalls.map((wallGroup) => {
@@ -198,98 +206,56 @@ function WallElements({ wallInfo }) {
                   ...wallGroup,
                   walls: wallGroup.walls.map((wall) => {
                     if (wall.section === wallInfo.section) {
+                      let newCost = 0;
+
                       switch (wall.section) {
                         case "Living":
-                          livingCost = (wallInfo.cost * 8.0) / 0.372;
-                          calCost =
-                            livingCost +
-                            room1Cost +
-                            room2Cost +
-                            room3Cost +
-                            tailCost +
-                            otherCostTail +
-                            otherCostWall;
-                          sendCost(calCost);
-                          return {
-                            ...wall,
-                            image: imgUrl,
-                          };
+                          newCost = (wallInfo.cost * 8.0) / 0.372;
+                          setCosts((prevCosts) => ({
+                            ...prevCosts,
+                            livingCost: newCost,
+                          }));
+                          break;
                         case "Room1":
-                          room1Cost = (wallInfo.cost * 8.0) / 0.158;
-                          calCost =
-                            livingCost +
-                            room1Cost +
-                            room2Cost +
-                            room3Cost +
-                            tailCost +
-                            otherCostTail +
-                            otherCostWall;
-                          sendCost(calCost);
-                          return {
-                            ...wall,
-                            image: imgUrl,
-                          };
+                          newCost = (wallInfo.cost * 8.0) / 0.158;
+                          setCosts((prevCosts) => ({
+                            ...prevCosts,
+                            room1Cost: newCost,
+                          }));
+                          break;
                         case "Room2":
-                          room2Cost = (wallInfo.cost * 8.0) / 0.284;
-                          calCost =
-                            livingCost +
-                            room1Cost +
-                            room2Cost +
-                            room3Cost +
-                            tailCost +
-                            otherCostTail +
-                            otherCostWall;
-                          sendCost(calCost);
-                          return {
-                            ...wall,
-                            image: imgUrl,
-                          };
+                          newCost = (wallInfo.cost * 8.0) / 0.284;
+                          setCosts((prevCosts) => ({
+                            ...prevCosts,
+                            room2Cost: newCost,
+                          }));
+                          break;
                         case "Room3":
-                          room3Cost = (wallInfo.cost * 8.0) / 0.186;
-                          calCost =
-                            livingCost +
-                            room1Cost +
-                            room2Cost +
-                            room3Cost +
-                            tailCost +
-                            otherCostTail +
-                            otherCostWall;
-                          sendCost(calCost);
-                          return {
-                            ...wall,
-                            image: imgUrl,
-                          };
+                          newCost = (wallInfo.cost * 8.0) / 0.186;
+                          setCosts((prevCosts) => ({
+                            ...prevCosts,
+                            room3Cost: newCost,
+                          }));
+                          break;
                         case "Restroom":
-                          tailCost = wallInfo.cost * 6;
-                          calCost =
-                            livingCost +
-                            room1Cost +
-                            room2Cost +
-                            room3Cost +
-                            tailCost +
-                            otherCostTail +
-                            otherCostWall;
-                          sendCost(calCost);
-                          return {
-                            ...wall,
-                            image: imgUrl,
-                          };
+                        case "Default":
+                          newCost = wallInfo.cost * 6;
+                          setCosts((prevCosts) => ({
+                            ...prevCosts,
+                            tailCost: newCost,
+                          }));
+                          break;
                         default:
-                          tailCost = wallInfo.cost * 6;
-                          calCost =
-                            livingCost +
-                            room1Cost +
-                            room2Cost +
-                            room3Cost +
-                            tailCost +
-                            otherCostTail +
-                            otherCostWall;
-                          sendCost(calCost);
-                          return {
-                            ...wall,
-                            image: imgUrl,
-                          };
+                          break;
                       }
+
+                      const calCost = calculateCost();
+                      sendCost(calCost);
+
+                      return {
+                        ...wall,
+                        image: imgUrl,
+                      };
                     }
                     return wall;
                   }),
@@ -300,7 +266,7 @@ function WallElements({ wallInfo }) {
         }
       }
     }
-  }, [imageURL]);
+  }, [imageURL, costs]);
   return (
     <>
       {rooms.map((room) => (

@@ -1,6 +1,6 @@
 import "../css/calcul.css";
-import ShowCo from "./showCo.js"
-import { useState, useRef, useEffect} from "react";
+import ShowCo from "./showCo.js";
+import { useState, useRef, useEffect } from "react";
 
 const Calcul = (props) => {
   const toggle = useRef();
@@ -33,20 +33,27 @@ const Calcul = (props) => {
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     var cost1 = Number(props.cost1);
     var cost2 = Number(props.cost2);
-    cost1 = Math.ceil(cost1/10000) * 10000;
-    cost2 = Math.ceil(cost2/10000) * 10000;
+    cost1 = Math.ceil(cost1 / 10000) * 10000;
+    cost2 = Math.ceil(cost2 / 10000) * 10000;
     const result = cost1 + cost2;
     setCost(result);
-  },[props.cost1, props.cost2])
+  }, [props.cost1, props.cost2]);
+
+  function formatPrice(price) {
+    return price.toLocaleString("ko-KR");
+  }
   return (
     <div>
       <div className="falseState" ref={toggle}>
-        <h1 className="cal">정산 : {Cost}</h1>
-        <h1 className="goShow" 
-        onClick={(e)=>{showPage(e)}} 
+        <h1 className="cal">정산 : {formatPrice(Cost)}</h1>
+        <h1
+          className="goShow"
+          onClick={(e) => {
+            showPage(e);
+          }}
         >
           {CoState === "false" ? "인테리어 업체보러가기" : "창닫기"}
         </h1>
