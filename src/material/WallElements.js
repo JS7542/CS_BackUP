@@ -150,11 +150,11 @@ function WallElements({ wallInfo }) {
   const [rooms, setRooms] = useRooms();
   const [imageURL, setImageURL] = useState();
   const server = "/amazon/";
-  var livingCost = 71424;
-  var room1Cost = 30336;
-  var room2Cost = 54528;
-  var room3Cost = 35712;
-  var tailCost = 243000;
+  var livingCost = 0;
+  var room1Cost = 0;
+  var room2Cost = 0;
+  var room3Cost = 0;
+  var tailCost = 0;
   var otherCostWall = 1440000;
   var otherCostTail = 1000000;
   var calCost =
