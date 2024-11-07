@@ -1,0 +1,49 @@
+.CoNwrapper {
+  width: 100%;
+  height: 100%;
+  display: block;
+  padding: 0 10% 0 10%;
+  align-items: center;
+}
+.Coimgwrapper {
+  width: 15vw;
+  height: 15vw;
+  margin-top: 25%;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 3px 3px 3px 3px rgb(95, 95, 95);
+}
+.Coimgwrapper img {
+  width: 100%;
+  height: 100%;
+}
+.Cotitlewrapper {
+  height: 3vh;
+  width: 35%;
+  right: 7%;
+  top: 25%;
+  position: absolute;
+}
+.Cotitlewrapper .title {
+  font-size: 250%;
+  text-decoration: underline;
+}
+.Cotitlewrapper a {
+  text-decoration: none;
+  color:black;
+}
+.Cotitlewrapper a:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+.Cotextwrapper {
+  width: 80%;
+  margin-top: 5%;
+  height: 15vw;
+  background-color: rgb(188, 188, 188);
+  box-shadow: 3px 3px 3px 3px rgb(95, 95, 95);
+}
+.Cotextwrapper pre {
+  font-size: 150%;
+  padding: 3% 3% 3% 3%;
+  overflow: hidden;
+}

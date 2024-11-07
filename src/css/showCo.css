@@ -1,0 +1,77 @@
+@keyframes hiddenAni {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+.coDiv{
+    opacity: 0;
+    height:100vh;
+    width:79vw;
+    position:fixed;
+    left:100vw;
+    top:0;
+    z-index: 500;
+    background-color: rgb(234, 234, 234);
+    flex-direction: row;
+    animation: hiddenAni 0.3s 0.8s forwards;
+}
+.CoIcondiv{
+    background-color: pink;
+    width:14vh;
+    height:14vh;
+    position: absolute;
+    margin-right: 3%;
+}
+.CoIcondiv img{
+    width: 100%;
+    height: 100%;
+    box-shadow: 3px 3px 3px 3px #6c62a4;
+}
+.CosideBarWapper{
+    float:left;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    height:100%;
+    width: 30%;
+    background-color:#7469B6;
+    box-shadow: -5px 3px 3px 3px #605795,
+                3px 3px 3px 3px #7a6ebb;
+}
+.CosideBarWapper1{
+    height:98%;
+    width: 97%;
+    background-color:rgb(234, 234, 234);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.Menu{
+    height:15%;
+    width: 70%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin: 3% 0 3% 0;
+    border-top:#7469B6 solid 2px;
+}
+.Menu span{
+    font-family: 'GmarketSansMedium';
+    font-size: 150%;
+    margin-top: -5%;
+    margin-left: 55%;
+    color:#7469B6;
+}
+.Menu span:hover{
+    cursor:pointer;
+}
+.CoMain{
+    float: right;
+    height:100%;
+    right:0;
+    width:70%;
+}

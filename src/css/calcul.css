@@ -1,0 +1,106 @@
+@keyframes start1 {
+    0%{
+        right:-50vw;
+    }
+    100%{
+        right:-15vw;
+    }
+}
+.falseState{
+    background-color: rgb(234, 234, 234);
+    position:fixed;
+    z-index: 201;
+    right:-15vw;
+    bottom:3vh;
+    width:20.5vw;
+    height:10vh;
+    border-top-left-radius: 2em;
+    border-bottom-left-radius: 2em;
+    border:#7469B6 solid 3px;
+    box-shadow: 0 0.5vh 0 0 #867b7b;
+    transition: all ease 0.3s;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    animation:start1 0.7s;
+}
+.falseState:hover{
+    right:0;
+}
+.falseState1{
+    background-color: rgb(234, 234, 234);
+    position:fixed;
+    z-index: 101;
+    right:-15vw;
+    bottom:3vh;
+    width:20.5vw;
+    height:10vh;
+    border-top-left-radius: 2em;
+    border-bottom-left-radius: 2em;
+    border:#7469B6 solid 3px;
+    box-shadow: 0 0.5vh 0 0 #867b7b;
+    transition: all ease 0.3s;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+.falseState1:hover{
+    right:0;
+}
+.trueState{
+    background-color: rgb(234, 234, 234);
+    position:fixed;
+    z-index: 101;
+    right:79vw;;
+    bottom:3vh;
+    width:20.5vw;
+    height:10vh;
+    border-top-left-radius: 2em;
+    border-bottom-left-radius: 2em;
+    border:#7469B6 solid 3px;
+    box-shadow: 0 0.5vh 0 0 #867b7b;
+    transition: all ease 1s;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+.fadeOUT{
+    background-color: rgb(234, 234, 234);
+    position:fixed;
+    z-index: 101;
+    right:79vw;;
+    bottom:3vh;
+    width:20.5vw;
+    height:10vh;
+    border-top-left-radius: 2em;
+    border-bottom-left-radius: 2em;
+    border:#7469B6 solid 3px;
+    box-shadow: 0 0.5vh 0 0 #867b7b;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    right:-15vw;
+    transition: all ease 1s;
+}
+
+.cal{
+    font-family: 'GmarketSansMedium';
+    margin:0 0 0 1vw;
+    border:none;
+    display: block;
+    color:#7469B6;
+    font-size: 100%;
+}
+.goShow{
+    font-family: 'GmarketSansMedium';
+    margin:0 0 0 6vw;
+    border:none;
+    display: block;
+    color:#7469B6;
+    font-size: 100%;
+    transition: all ease 0.5s;
+}
+.goShow:hover{
+    cursor:pointer;
+    font-size: 110%;
+}

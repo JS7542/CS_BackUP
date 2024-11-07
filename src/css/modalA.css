@@ -1,0 +1,124 @@
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+.modalBlackWrapper{
+  background-color: black;
+  height: 100vh;
+  width:100vw;
+  position:absolute;
+  top:0;
+  left:0;
+  z-index: 300;
+  opacity: 0.3;
+}
+.Select {
+  font-family: "GmarketSansMedium";
+  width: 70vw;
+  height: auto;
+  background-color: #eaeaea;
+  margin: 1vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 100%;
+  color: #7469b6;
+  flex-direction: row;
+}
+.map,
+.list {
+  height: 60vh;
+  z-index: 300;
+}
+.map {
+  flex: 6; /* 비율 6 */
+  width: auto; /* flex 비율에 따라 너비가 조정되도록 auto로 설정 */
+  position: relative;
+  float: left;
+}
+
+.Search {
+  left: 10px;
+  top: 10px;
+  z-index: 5;
+  position: absolute;
+}
+.list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: right;
+  flex: 3;
+  background-color: #eaeaea;
+  flex-direction: column;
+  overflow: overlay;
+}
+.list2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eaeaea;
+  flex-direction: column;
+  margin-top: 30%;
+}
+.apartImg img{
+  width:100%;
+}
+.apartImg{
+  width: 80%;
+}
+.apartInfo {
+  width: 80%;
+}
+.pyInfo{
+  margin-top: 10%;
+  margin-bottom: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.pyInfo img{
+  width: 80%;
+}
+.listBtn{
+  background-color:#9082e1;
+  color: white;
+  width:6vw;
+  height:4vh;
+  font-size: 110%;
+  font-weight: 700;
+  border-radius: 3em;
+  margin-bottom: 10%;
+  transition: all ease 0.3s;
+  border: none;
+  box-shadow: 3px 3px 3px 3px #7469b6,
+  -3px 3px 3px 3px #7469b6;
+}
+.listBtn:hover{
+  width:7vw;
+  height:5vh;
+  font-size: 120%;
+}
+.listBtn1{
+  background-color:#e18282;
+  color: white;
+  width:6vw;
+  height:4vh;
+  font-size: 110%;
+  font-weight: 700;
+  border-radius: 3em;
+  margin-bottom: 10%;
+  transition: all ease 0.3s;
+  border: none;
+  box-shadow: 3px 3px 3px 3px #b66969,
+  -3px 3px 3px 3px #b66969;
+}
+.listBtn1:hover{
+  width:7vw;
+  height:5vh;
+  font-size: 120%;
+}

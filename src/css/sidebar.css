@@ -1,0 +1,118 @@
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@keyframes start1 {
+    0%{
+        right:-50vw;
+    }
+    100%{
+        right:-15vw;
+    }
+}
+.Wrapper{
+    padding: 1vh 0 0 1vh;
+    z-index: 100;
+    position: fixed;
+    top:3vh;
+    right:-15vw;
+    height:80vh;
+    width:20vw;
+    background-color: rgb(234, 234, 234);
+    border-top-left-radius: 2em;
+    border-bottom-left-radius: 2em;
+    transition: all ease 0.3s;
+    display: flex;
+    flex-direction: column;
+    border:#7469B6 solid 3px;
+    box-shadow: 0 0.5vh 0 0 #867b7b;
+    overflow: overlay;
+    animation:start1 0.7s;
+}
+.Wrapper:hover{
+    right:0;
+}
+.Wrapper ul{
+    font-family: 'GmarketSansMedium';
+    margin:0 0 3% 0;
+    border:none;
+    display: block;
+    list-style: none;
+    border-top:solid #AD88C6 2px;
+    color:#7469B6;
+    overflow: overlay;
+    height:0;
+    padding: 0;
+    transition:all ease 0.5s;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.Wrapper .check{
+    display:none;
+}
+.Wrapper h1{
+    font-family: 'GmarketSansMedium';
+    margin:0 0 0 0.1vw;
+    border:none;
+    display: block;
+    color:#7469B6;
+    font-size: 120%;
+}
+.Wrapper h1:hover{
+    cursor: pointer;
+}
+.div_inUl{
+    z-index: 101;
+    padding: 0.4vh 0 0.4vh 0.3vw;
+    width: 90%;
+    text-decoration: none;
+    font-weight: 700;
+    background-color: white;
+    transition:all ease 0.3s;
+    border-radius: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border:#7469B6 solid 2px;
+}
+.div_inUl img{
+    width:80%;
+}
+.div_inUl:hover{
+    background-color: #AD88C6;
+    color:white;
+    cursor: pointer;
+}
+.indexWrapper{
+    height:0;
+    transition:all ease 0.3s;
+    overflow: hidden;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+.indexWrapper input{
+    display: none;
+}
+.indexWrapper label{
+    z-index: 102;
+    margin-right: 0.5vw;
+    font-size: large;
+    color: #7469B6;
+}
+.indexWrapper label::before{
+    content: "";
+    width:0.5vw;
+    height: 0.5vw;
+    background-color: rgb(234, 234, 234);
+    display: inline-block;
+    border: #7469B6 3px solid;
+    border-radius: 0.2em;
+    transform: translateY(10%);
+}
+.indexWrapper input:checked + label::before{
+    background-color: #7469B6;
+}
